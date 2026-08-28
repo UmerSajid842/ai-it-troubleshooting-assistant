@@ -1,0 +1,4 @@
+requests>=2.31
+jupyter>=1.0
+notebook>=7.0
+pytest>=8.0
