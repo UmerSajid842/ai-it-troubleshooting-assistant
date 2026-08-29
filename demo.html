@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI IT Troubleshooting Assistant</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: #08111f; color: #e9f1ff; }
+    .shell { width: min(1100px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 56px; }
+    .eyebrow { color: #77d9c8; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; font-weight: 800; }
+    h1 { font-size: clamp(34px, 6vw, 68px); line-height: .98; margin: 16px 0; max-width: 760px; letter-spacing: -.05em; }
+    .lede { color: #a9b8cf; font-size: 18px; line-height: 1.6; max-width: 720px; }
+    .badge { display: inline-flex; gap: 8px; align-items: center; border: 1px solid #1d756d; color: #8ee7d5; background: #0b302f; border-radius: 999px; padding: 8px 12px; font-size: 12px; font-weight: 750; }
+    .grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px; margin-top: 34px; }
+    .panel { background: linear-gradient(145deg, #101d30, #0c1625); border: 1px solid #1f334c; border-radius: 22px; padding: 24px; box-shadow: 0 18px 55px #0003; }
+    .panel h2 { margin: 0 0 8px; font-size: 18px; }
+    .muted { color: #93a5bf; line-height: 1.55; }
+    textarea { width: 100%; min-height: 130px; resize: vertical; border-radius: 14px; border: 1px solid #334964; background: #08111f; color: #f4f8ff; padding: 15px; font: inherit; line-height: 1.5; outline: none; }
+    textarea:focus { border-color: #67d7c6; box-shadow: 0 0 0 3px #67d7c622; }
+    button { border: 0; border-radius: 12px; padding: 12px 16px; margin-top: 12px; background: #63d6c4; color: #08201f; font: inherit; font-weight: 800; cursor: pointer; transition: transform .16s ease, filter .16s ease; }
+    button:hover { filter: brightness(1.08); } button:active { transform: scale(.97); }
+    .examples { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .examples button { margin: 0; background: #172c43; color: #cfe0f6; border: 1px solid #294561; font-size: 13px; }
+    .result { margin-top: 18px; min-height: 230px; }
+    .result.empty { display: grid; place-items: center; color: #7186a3; text-align: center; border: 1px dashed #2b4059; border-radius: 16px; padding: 24px; }
+    .intent { color: #8ee7d5; text-transform: uppercase; letter-spacing: .12em; font-size: 11px; font-weight: 800; }
+    .result h3 { margin: 8px 0 6px; font-size: 24px; }
+    ol { padding-left: 24px; color: #d9e5f7; line-height: 1.65; }
+    li { margin: 8px 0; }
+    .callout { margin-top: 16px; background: #211d14; color: #f6dfad; border: 1px solid #66522d; border-radius: 13px; padding: 13px 14px; line-height: 1.5; font-size: 14px; }
+    .side-list { display: grid; gap: 12px; margin-top: 18px; }
+    .side-item { padding: 14px; border-radius: 14px; background: #0a1524; border: 1px solid #1d3048; }
+    .side-item strong { display: block; margin-bottom: 4px; color: #f1f6ff; }
+    .footer { color: #7186a3; font-size: 13px; margin-top: 24px; line-height: 1.6; }
+    @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } .shell { padding-top: 28px; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <span class="badge">● Offline deterministic demo · no commands executed</span>
+    <div class="eyebrow" style="margin-top:28px">AI-powered IT troubleshooting assistant</div>
+    <h1>Turn a vague support issue into a safe next step.</h1>
+    <p class="lede">This browser demo mirrors the repository’s reviewable assistant workflow: classify the issue, return an ordered playbook, surface escalation guidance, and keep every system action behind human confirmation.</p>
+    <section class="grid">
+      <div class="panel">
+        <h2>Describe the issue</h2>
+        <p class="muted">Do not enter passwords, MFA codes, API keys, or private incident details.</p>
+        <textarea id="issue" placeholder="Example: My Wi-Fi is connected but websites will not load"></textarea>
+        <button id="run">Generate safe guidance</button>
+        <div class="examples">
+          <button data-example="My Wi-Fi is connected but websites will not load">Wi-Fi issue</button>
+          <button data-example="I am locked out and cannot sign in">Account access</button>
+          <button data-example="My computer is very slow today">Slow device</button>
+          <button data-example="Something strange happened">Unknown issue</button>
+        </div>
+        <div id="result" class="result empty">Your structured troubleshooting response will appear here.</div>
+      </div>
+      <aside class="panel">
+        <h2>How the project works</h2>
+        <p class="muted">The production repository separates predictable playbooks from the optional LLM adapter, so reviewers can see what is deterministic and what requires model configuration.</p>
+        <div class="side-list">
+          <div class="side-item"><strong>1. Intent routing</strong><span class="muted">Maps common language to a reviewed Wi-Fi, password, performance, or unknown flow.</span></div>
+          <div class="side-item"><strong>2. Structured guidance</strong><span class="muted">Returns ordered steps, escalation notes, confirmation state, and an empty execution log.</span></div>
+          <div class="side-item"><strong>3. Human control</strong><span class="muted">The assistant never runs shell commands, changes settings, or handles credentials.</span></div>
+        </div>
+        <p class="footer">Repository: github.com/UmerSajid842/ai-it-troubleshooting-assistant<br />This is a local browser demonstration of the deterministic path, not a hosted LLM service.</p>
+      </aside>
+    </section>
+  </main>
+  <script>
+    const playbooks = {
+      wifi: { title: 'Wi-Fi connectivity', steps: ['Confirm that Wi-Fi is enabled and the device is connected to the intended network.', 'Restart the router only if you are authorized to do so and no critical service depends on it.', 'Test one other device to separate a device issue from a network issue.'], escalate: 'Escalate if multiple devices remain offline or if the network is business-critical.' },
+      password: { title: 'Password or account access', steps: ['Use the organization’s approved password-reset page rather than sharing a password in chat.', 'Check that the account identifier and sign-in domain are correct.', 'Contact the service desk if multi-factor authentication or account lockout persists.'], escalate: 'Never request or store the user’s password, recovery code, or MFA secret.' },
+      slow: { title: 'Slow computer or application', steps: ['Save work and note which application or action is slow.', 'Close only non-essential applications after confirming unsaved work is not at risk.', 'Record the time, error text, and recent changes for the service desk.'], escalate: 'Escalate before deleting files, changing registry settings, or running privileged commands.' }
+    };
+    function detectIntent(text) { const t = text.toLowerCase(); if (['wifi','wi-fi','internet','network'].some(x => t.includes(x))) return 'wifi'; if (['password','login','sign in','mfa','locked'].some(x => t.includes(x))) return 'password'; if (['slow','freezes','lag','performance'].some(x => t.includes(x))) return 'slow'; return 'unknown'; }
+    function render() {
+      const text = document.getElementById('issue').value.trim(); const result = document.getElementById('result');
+      if (!text) { result.className = 'result empty'; result.textContent = 'Describe an issue to receive safe, structured guidance.'; return; }
+      const intent = detectIntent(text);
+      if (intent === 'unknown') { result.className = 'result'; result.innerHTML = '<div class="intent">intent · unknown</div><h3>More context is needed</h3><p class="muted">I could not confidently classify the issue. Provide the application, symptom, and exact error text without sharing credentials.</p><div class="callout">Escalate security-sensitive, privileged, or business-critical incidents to a qualified human.</div>'; return; }
+      const p = playbooks[intent]; result.className = 'result'; result.innerHTML = `<div class="intent">intent · ${intent}</div><h3>${p.title}</h3><p class="muted">Here is a safe first-pass checklist. No system action was executed.</p><ol>${p.steps.map(step => `<li>${step}</li>`).join('')}</ol><div class="callout">${p.escalate}</div>`;
+    }
+    document.getElementById('run').addEventListener('click', render);
+    document.getElementById('issue').addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') render(); });
+    document.querySelectorAll('[data-example]').forEach(button => button.addEventListener('click', () => { document.getElementById('issue').value = button.dataset.example; render(); }));
+  </script>
+</body>
+</html>

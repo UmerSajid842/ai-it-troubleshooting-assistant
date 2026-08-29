@@ -30,6 +30,10 @@ The included notebook walks through the system design, a sample conversation, st
 └── README.md
 ```
 
+## Browser demo
+
+Open [`demo.html`](demo.html) for a standalone browser demonstration of the deterministic workflow. It supports Wi-Fi, account-access, slow-device, and unknown-issue examples. The demo runs entirely in the browser, executes no commands, and does not call an LLM service.
+
 ## Local setup
 
 ```bash
